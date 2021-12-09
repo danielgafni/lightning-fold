@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "lightning-fold-datamodule"
+version = "0.1.0"
+description = ""
+authors = ["Daniel Gafni <danielgafni16@gmail.com>"]
+packages = [
+    { include = "lightning_fold", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pytorch-lightning = {git = "https://github.com/PyTorchLightning/pytorch-lightning.git"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cases = "^3.6.5"
+pre-commit = "^2.16.0"
+black = "^21.12b0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+autoflake = "^1.4"
+mypy = "^0.910"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | build
+  | dist
+  )/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+src_paths = ["src/lightning_fold", "src/tests"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "src/tests"
+]
+addopts = "-s --log-cli-level=ERROR -rE --doctest-modules --doctest-glob=\"*.py\" -vv"
+
+[tool.mypy]
+python_version = 3.7
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+files = "src/lightning_fold,src/tests"
